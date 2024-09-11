@@ -9,6 +9,9 @@ const Navigation = () => {
       <NavLink className={({ isActive }) => clsx(css.link, isActive && css.active)} to="/">
         Home
       </NavLink>
+      <NavLink className={({ isActive }) => clsx(css.link, isActive && css.active)} to="/contacts">
+        Contacts
+      </NavLink>
       <NavLink className={({ isActive }) => clsx(css.link, isActive && css.active)} to="/register">
         Register
       </NavLink>
