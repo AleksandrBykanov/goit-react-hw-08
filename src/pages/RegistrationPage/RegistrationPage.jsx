@@ -2,10 +2,11 @@ import css from "./RegistrationPage.module.css";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiRegister } from "../../redux/auth/operations";
+import { selectAuthError } from '../../redux/auth/selectors';
 
-const FeedbackSchema = Yup.object().shape({
+const RegistrationSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
     .max(100, "Too Long!")
@@ -21,6 +22,7 @@ const FeedbackSchema = Yup.object().shape({
 
 const RegistrationPage = () => {
   const dispatch = useDispatch();
+  const error = useSelector(selectAuthError);
 
   const handleSubmit = (values, actions) => {
     const profile = {
@@ -40,7 +42,7 @@ const RegistrationPage = () => {
         password: "",
       }}
       onSubmit={handleSubmit}
-      validationSchema={FeedbackSchema}
+      validationSchema={RegistrationSchema}
     >
       <Form className={css.form}>
         <label className={css.label} htmlFor="name">
@@ -77,6 +79,7 @@ const RegistrationPage = () => {
             component="span"
           />
         </label>
+        {error && <p className={css.errorText}>Incorrect login or password {error}</p>}
         <button className={css.btn} type="submit">
         Register
         </button>
