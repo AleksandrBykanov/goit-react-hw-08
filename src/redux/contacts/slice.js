@@ -52,8 +52,7 @@ const profileSlice = createSlice({
       .addCase(deleteContact.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-      
+      })      
 });
 
 export const selectFilteredContacts = createSelector(
