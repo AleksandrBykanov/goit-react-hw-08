@@ -7,7 +7,7 @@ import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import Layout from "./components/Layout/Layout";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { apiRefreshUser } from "./redux/auth/operations";
 import { selectAuthIsRefreshing } from "./redux/auth/selectors";
@@ -18,38 +18,26 @@ function App() {
 
   useEffect(() => {
     dispatch(apiRefreshUser());
-  }, [dispatch])
+  }, [dispatch]);
 
   if (isRefreshing) return <p>User is refreshing, please wait</p>;
 
- return (
+  return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route
             path="/register"
-            element={
-              <RestrictedRoute>
-                <RegistrationPage />
-              </RestrictedRoute>
-            }
+            element={<RestrictedRoute component={<RegistrationPage />} />}
           />
           <Route
             path="/login"
-            element={
-              <RestrictedRoute>
-                <LoginPage />
-              </RestrictedRoute>
-            }
+            element={<RestrictedRoute component={<LoginPage />} />}
           />
           <Route
             path="/contacts"
-            element={
-              <PrivateRoute>
-                <ContactsPage />
-              </PrivateRoute>
-            }
+            element={<PrivateRoute component={<ContactsPage />} />}
           />
         </Route>
       </Routes>
