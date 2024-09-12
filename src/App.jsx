@@ -7,8 +7,20 @@ import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import Layout from "./components/Layout/Layout";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import { useDispatch, useSelector} from "react-redux";
+import { useEffect } from "react";
+import { apiRefreshUser } from "./redux/auth/operations";
+import { selectAuthIsRefreshing } from "./redux/auth/selectors";
 
 function App() {
+  const isRefreshing = useSelector(selectAuthIsRefreshing);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(apiRefreshUser());
+  }, [dispatch])
+
+  if (isRefreshing) return <p>User is refreshing, please wait</p>;
 
  return (
     <>
